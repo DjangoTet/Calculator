@@ -1,23 +1,30 @@
 /* Containers */
 .main{
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
-  background-color: darkseagreen;
+  background-color: black;
+  border-right: 3px solid white ;
   width: 100%;
   height: 100%;
   min-height: 100vh;
+  padding-right: 60px;
+}
+.calc{
+  display: flex;
+  flex-direction: column;
+  padding-right: 5%;
 }
 .border{
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 363px;
-  height: 670.5px;
+  width: 361px;
+  height: 671px;
   border-radius: 30px;
   background-color: #fde7f9;
   background-image: linear-gradient(315deg, #fde7f9 0%, #aacaef 74%);
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 .row{
   display: flex;
@@ -77,13 +84,12 @@
 .calculator{
   display: flex;
   flex-direction: column;
-  padding: 35px 24px 30px 24px;
-  background-color: rgb(10, 10, 10);
+  padding: 20px;
+  background-color: rgb(15, 15, 15);
   width: 360px;
   height: 670px;
   border-radius: 30px;
   justify-content: space-between;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 /* Unique Components */
@@ -93,7 +99,11 @@
   border-radius: 15px 15px 0 0;
   flex-grow: 3;
   border-left: 0.1px solid #fde7f9;;
-  border-top: 0.1px solid #fde7f9;;
+  border-top: 0.1px solid #fde7f9;
+  justify-content: flex-end;
+  align-items: end;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
   }
 .result{
   font-size: 60px;
@@ -116,12 +126,34 @@
   font-style: normal;
   vertical-align: baseline;
   text-align: center;
-}
-.txt:hover{
-  color: lightgray;
+  user-select: none;
+    /* supported by Chrome and Opera */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
 }
 .divider{
   height: 10px;
+}
+.title{
+  font-family: futura-pt, sans-serif;
+  font-style: normal;
+  font-size: 60px;
+  font-weight: 600;
+  color: white;
+}
+.sub{
+  font-family: futura-pt, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 50px;
+  font-weight: 400;
+  color: white;
 }
 
 /* Colors and Independat Styles */
@@ -131,16 +163,33 @@
     54);
   background-image: linear-gradient(147deg, RGB(217,
       54,
-      54) 0%, rgb(207,
-    44,
-    44) 74%);
+      54) 0%, rgb(203,
+    40,
+    40) 74%);
+}
+.red:active{
+  background-color: RGB(203,
+      40,
+      40);
+  background-image: linear-gradient(147deg, rgb(203,
+      40,
+      40) 0%, RGB(217,
+          54,
+          54) 74%);
 }
 .white{
   background-color: white;
-  background-color: rgb(255, 255, 255);
     background-image: linear-gradient(147deg, rgb(254, 254, 254) 0%, rgb(220,
           220,
           220) 74%);
+}
+.white:active{
+  background-color: rgb(220,
+      220,
+      220);
+    background-image: linear-gradient(147deg, rgb(220,
+        220,
+        220) 0%, rgb(255,255,255) 74%);
 }
 .blck-txt{
   color: black;
