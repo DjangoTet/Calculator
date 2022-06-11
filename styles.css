@@ -19,11 +19,11 @@
   align-items: center;
   background-color: rgb(33, 33, 33);
   border-radius: 800px;
-  margin: 5px;
+  margin: 3px;
   justify-content: space-around;
-  flex: 1 0 auto;
+  flex: 1;
   height: auto;
-  width: 76.25px;
+  flex-grow: 1;
 }
 .button::before{
   content: '';
@@ -32,17 +32,18 @@
 }
 .buttons{
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
-  padding: 5px 10px;
+  padding: 0 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .calculator{
   display: flex;
   flex-direction: column;
-  padding: 35px 32px 30px 32px;
+  padding: 35px 24px 30px 24px;
   background-color: black;
-  width: 425px;
-  height: 650px;
+  width: 390px;
+  height: 670px;
   border-radius: 30px;
   justify-content: space-between;
 }
@@ -50,6 +51,8 @@
 /* Unique Components */
 .screen{
   background-color: rgb(33, 33, 33);
+  border-radius: 15px 15px 0 0;
+  flex-grow: 3;
 }
 .result{
   font-size: 60px;
@@ -68,10 +71,23 @@
   justify-content: center;
   align-items: center;
   font-family: futura-pt, sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  font-weight: 400;
+  font-style: normal;
+}
+.divider{
+  height: 10px;
 }
 
+/* Colors and Independat Styles */
+.red{
+  background-color: #FF0000;
+}
+.white{
+  background-color: white;
+}
+.blck-txt{
+  color: black;
+}
 /* Specific Sizing/ Spacing */
 .grow2{
   flex-grow: 2;
