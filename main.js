@@ -27,6 +27,43 @@ buttons.addEventListener('click', function(event){
   }
 
 
+/* Finding current operator */
+  if (event.target === plusMinus){
+    currentOperator = 'plusMinus';
+    console.log(currentOperator);
+    return false;
+  }
+  else if (event.target === plus) {
+    currentOperator = 'plus';
+    console.log(currentOperator);
+    return false;
+  }
+  else if (event.target === minus) {
+    currentOperator = 'minus';
+    console.log(currentOperator);
+    return false;
+  }
+  else if (event.target === divide) {
+    currentOperator = 'divide';
+    console.log(currentOperator);
+    return false;
+  }
+  else if (event.target === times) {
+    currentOperator = 'times';
+    console.log(currentOperator);
+    return false;
+  }
+  else if (event.target === equal) {
+    currentOperator = 'equal';
+    console.log(currentOperator);
+    return false;
+  }
+  else if (event.target === percent) {
+    currentOperator = 'percent';
+    console.log(currentOperator);
+    return false;
+  }
+
   /*checking for length and then applying the current num" */
   if(num.split('').length >= 8){
     display.className = 'nine';
