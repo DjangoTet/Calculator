@@ -123,6 +123,9 @@
   font-style: normal;
   color: white;
 }
+.nine{
+  font-size: 50px;
+}
 .txt{
   display: flex;
   font-size: 35px;
