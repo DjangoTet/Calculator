@@ -10,10 +10,9 @@ buttons.addEventListener('click', function(event){
   if(result.split('').length >= 8){
     display.className = 'nine';
     result += event.target.textContent;
-    display.textContent = result;
   }
   if (result.split('').length >= 10) {
-    console.log('over 10');
+    return false;
   }
   else{
     result += event.target.textContent;
