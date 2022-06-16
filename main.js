@@ -1,6 +1,5 @@
 let display = document.getElementById('display');
 let num = display.textContent;
-let num2;
 let buttons = document.getElementById('buttons');
 
 /* Operators */
@@ -20,51 +19,56 @@ buttons.addEventListener('click', function(event){
     return;
   }
   if(event.target.id === 'clear'){
-    console.log(num);
     num = '';
     display.textContent = null;
     return false;
   }
 
 
+  let numbers = {
+    num1: "",
+    num2: ""
+  };
+  console.log(numbers.num1);
+
 /* Finding current operator */
   if (event.target === plusMinus){
     currentOperator = 'plusMinus';
-    console.log(currentOperator);
+    display.textContent = null;
     return false;
   }
   else if (event.target === plus) {
     currentOperator = 'plus';
-    console.log(currentOperator);
+    display.textContent = null;
     return false;
   }
   else if (event.target === minus) {
     currentOperator = 'minus';
-    console.log(currentOperator);
+    display.textContent = null;
     return false;
   }
   else if (event.target === divide) {
     currentOperator = 'divide';
-    console.log(currentOperator);
+    display.textContent = null;
     return false;
   }
   else if (event.target === times) {
     currentOperator = 'times';
-    console.log(currentOperator);
+    display.textContent = null;
     return false;
   }
   else if (event.target === equal) {
     currentOperator = 'equal';
-    console.log(currentOperator);
+    display.textContent = null;
     return false;
   }
   else if (event.target === percent) {
     currentOperator = 'percent';
-    console.log(currentOperator);
+    display.textContent = null;
     return false;
   }
 
-  /*checking for length and then applying the current num" */
+  /*checking that the length is appropriate and then displaying the current number" */
   if(num.split('').length >= 8){
     display.className = 'nine';
     num += event.target.textContent;
