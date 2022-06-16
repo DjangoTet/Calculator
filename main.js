@@ -16,7 +16,7 @@ let currentOperator;
 buttons.addEventListener('click', function(event){
   /* Checking if target is not a number */
   if(event.target.className === 'row'){
-    return;
+    return false;
   }
   if(event.target.id === 'clear'){
     num = '';
@@ -25,45 +25,60 @@ buttons.addEventListener('click', function(event){
   }
 
 
-  let numbers = {
-    num1: "",
-    num2: ""
-  };
-  console.log(numbers.num1);
-
 /* Finding current operator */
   if (event.target === plusMinus){
     currentOperator = 'plusMinus';
+    numbers.num1 = num;
+    console.log(numbers.num1);
+    console.log(currentOperator);
     display.textContent = null;
     return false;
   }
   else if (event.target === plus) {
     currentOperator = 'plus';
+    numbers.num1 = num;
+    console.log(numbers.num1);
+    console.log(currentOperator);
     display.textContent = null;
     return false;
   }
   else if (event.target === minus) {
     currentOperator = 'minus';
+    numbers.num1 = num;
+    console.log(numbers.num1);
+    console.log(currentOperator);
     display.textContent = null;
     return false;
   }
   else if (event.target === divide) {
     currentOperator = 'divide';
+    numbers.num1 = num;
+    console.log(numbers.num1);
+    console.log(currentOperator);
     display.textContent = null;
     return false;
   }
   else if (event.target === times) {
     currentOperator = 'times';
+    numbers.num1 = num;
+    console.log(numbers.num1);
+    console.log(currentOperator);
     display.textContent = null;
     return false;
   }
   else if (event.target === equal) {
     currentOperator = 'equal';
+    numbers.num1 = num;
+    console.log(numbers.num1);
+    console.log(currentOperator);
     display.textContent = null;
     return false;
   }
   else if (event.target === percent) {
     currentOperator = 'percent';
+    numbers.num1 = num;
+    console.log(numbers.num1);
+    console.log(currentOperator);
     display.textContent = null;
     return false;
   }
