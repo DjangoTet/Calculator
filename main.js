@@ -16,12 +16,46 @@ let currentOperator;
 
 buttons.addEventListener('click', function(event){
 
-  /* Finding current operator and applying the correlated function */
-  /*
- if (event.target === plusMinus){
-     currentNum = 'y';
-   }
- */
+  let valid = true;
+
+  function validateEvent(event){
+    if (event.id === 'clear') {
+      num = '';
+      display.textContent = null;
+      valid = false;
+      return false;
+    }
+    if (event.className === 'row'){
+      console.log('fail');
+      valid = false;
+      return false;
+    }
+    else{
+      valid = true;
+    }
+  }
+  validateEvent(event.target);
+
+  function numLength(number){
+    console.log(valid);
+    if (valid === false){
+      return false;
+    }
+    if (number.split('').length >= 8) {
+      display.className = 'nine';
+      num += event.target.textContent;
+    }
+    if (number.split('').length >= 10) {
+      return false;
+    }
+    else {
+      num += event.target.textContent;
+      display.textContent = num;
+    }
+    return num;
+  }
+  numLength(num);
+
 
   if (event.target === plus) {
     numbers.second = true;
@@ -39,45 +73,6 @@ buttons.addEventListener('click', function(event){
     numbers.second = true;
   }
 })
-
-  /* Checking if target is actually a number or just a random click */
-
-  if(event.target.id === 'clear'){
-    num = '';
-    display.textContent = null;
-  }
-
-  /*checking that the number length visually fits the screen before displaying */
-
-  if (num.split('').length >= 8) {
-    if (numbers.second === true) {
-      display.textContent = '';
-      console.log(numbers)
-    }
-    display.className = 'nine';
-    num += event.target.textContent;
-    if(numbers.second === false){
-      numbers.x = num;
-      console.log(numbers)
-    }
-  }
-  if (num.split('').length >= 10) {
-    return false;
-  }
-  else {
-    num += event.target.textContent;
-    if (numbers.second === true) {
-      display.textContent = null;
-      num = '';
-      numbers.y = num;
-      console.log(numbers)
-    }
-    display.textContent = num;
-    if (numbers.second === false) {
-      numbers.x = num;
-      console.log(numbers)
-    }
-  }
 
 
 /* Math Functions */
@@ -105,8 +100,3 @@ function percentage(x, y) {
   let result = x + y;
   return result;
 }
-
-  /* Result
-  else if (event.target === equal) {
-  }
-*/
