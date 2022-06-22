@@ -12,50 +12,12 @@ let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
 let currentOperator;
 
+
 /*Checking that the user is actually clicking a button. If user clicks the clear button, all content is erased. */
 
 buttons.addEventListener('click', function(event){
 
-  let valid = true;
-
-  function validateEvent(event){
-    if (event.id === 'clear') {
-      num = '';
-      display.textContent = null;
-      valid = false;
-      return false;
-    }
-    if (event.className === 'row'){
-      console.log('fail');
-      valid = false;
-      return false;
-    }
-    else{
-      valid = true;
-    }
-  }
-  validateEvent(event.target);
-
-  function numLength(number){
-    console.log(valid);
-    if (valid === false){
-      return false;
-    }
-    if (number.split('').length >= 8) {
-      display.className = 'nine';
-      num += event.target.textContent;
-    }
-    if (number.split('').length >= 10) {
-      return false;
-    }
-    else {
-      num += event.target.textContent;
-      display.textContent = num;
-    }
-    return num;
-  }
-  numLength(num);
-
+  /* - - - - - Handle Operators - - - - - - */
 
   if (event.target === plus) {
     numbers.second = true;
@@ -72,6 +34,48 @@ buttons.addEventListener('click', function(event){
   else if (event.target === percent) {
     numbers.second = true;
   }
+
+
+/* - - - - - Handle Numbers - - - - - - */
+
+  /* Check that is number */
+  let valid = true;
+  function validateEvent(event){
+    if (event.id === 'clear') {
+      num = '';
+      display.textContent = null;
+      valid = false;
+      return false;
+    }
+    if (event.className === 'row'){
+      valid = false;
+      return false;
+    }
+    else{
+      valid = true;
+    }
+  }
+  validateEvent(event.target);
+
+  /*Check that number fits screen */
+  function numLength(number){
+    if (valid === false){
+      return false;
+    }
+    if (number.split('').length >= 8) {
+      display.className = 'nine';
+    }
+    if (number.split('').length >= 10) {
+      return false;
+    }
+    else {
+      num += event.target.textContent;
+      display.textContent = num;
+    }
+    return num;
+  }
+  numLength(num);
+
 })
 
 
