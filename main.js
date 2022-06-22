@@ -2,7 +2,7 @@ let display = document.getElementById('display');
 let num = display.textContent;
 let buttons = document.getElementById('buttons');
 
-/* Operators */
+/* Math Operators */
 let plusMinus = document.getElementById('plusMinus');
 let plus = document.getElementById('plus');
 let minus = document.getElementById('minus');
@@ -12,87 +12,101 @@ let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
 let currentOperator;
 
-/* Check that what you are clicking is a button and add it to display if less than 9 characters */
+/*Checking that the user is actually clicking a button. If user clicks the clear button, all content is erased. */
+
 buttons.addEventListener('click', function(event){
-  /* Checking if target is not a number */
-  if(event.target.className === 'row'){
-    return false;
+
+  /* Finding current operator and applying the correlated function */
+  /*
+ if (event.target === plusMinus){
+     currentNum = 'y';
+   }
+ */
+
+  if (event.target === plus) {
+    numbers.second = true;
   }
+  else if (event.target === minus) {
+    numbers.second = true;
+  }
+  else if (event.target === divide) {
+    numbers.second = true;
+  }
+  else if (event.target === times) {
+    numbers.second = true;
+  }
+  else if (event.target === percent) {
+    numbers.second = true;
+  }
+})
+
+  /* Checking if target is actually a number or just a random click */
+
   if(event.target.id === 'clear'){
     num = '';
     display.textContent = null;
-    return false;
   }
 
+  /*checking that the number length visually fits the screen before displaying */
 
-/* Finding current operator */
-  if (event.target === plusMinus){
-    currentOperator = 'plusMinus';
-    numbers.num1 = num;
-    console.log(numbers.num1);
-    console.log(currentOperator);
-    display.textContent = null;
-    return false;
-  }
-  else if (event.target === plus) {
-    currentOperator = 'plus';
-    numbers.num1 = num;
-    console.log(numbers.num1);
-    console.log(currentOperator);
-    display.textContent = null;
-    return false;
-  }
-  else if (event.target === minus) {
-    currentOperator = 'minus';
-    numbers.num1 = num;
-    console.log(numbers.num1);
-    console.log(currentOperator);
-    display.textContent = null;
-    return false;
-  }
-  else if (event.target === divide) {
-    currentOperator = 'divide';
-    numbers.num1 = num;
-    console.log(numbers.num1);
-    console.log(currentOperator);
-    display.textContent = null;
-    return false;
-  }
-  else if (event.target === times) {
-    currentOperator = 'times';
-    numbers.num1 = num;
-    console.log(numbers.num1);
-    console.log(currentOperator);
-    display.textContent = null;
-    return false;
-  }
-  else if (event.target === equal) {
-    currentOperator = 'equal';
-    numbers.num1 = num;
-    console.log(numbers.num1);
-    console.log(currentOperator);
-    display.textContent = null;
-    return false;
-  }
-  else if (event.target === percent) {
-    currentOperator = 'percent';
-    numbers.num1 = num;
-    console.log(numbers.num1);
-    console.log(currentOperator);
-    display.textContent = null;
-    return false;
-  }
-
-  /*checking that the length is appropriate and then displaying the current number" */
-  if(num.split('').length >= 8){
+  if (num.split('').length >= 8) {
+    if (numbers.second === true) {
+      display.textContent = '';
+      console.log(numbers)
+    }
     display.className = 'nine';
     num += event.target.textContent;
+    if(numbers.second === false){
+      numbers.x = num;
+      console.log(numbers)
+    }
   }
   if (num.split('').length >= 10) {
     return false;
   }
-  else{
+  else {
     num += event.target.textContent;
+    if (numbers.second === true) {
+      display.textContent = null;
+      num = '';
+      numbers.y = num;
+      console.log(numbers)
+    }
     display.textContent = num;
+    if (numbers.second === false) {
+      numbers.x = num;
+      console.log(numbers)
+    }
   }
-})
+
+
+/* Math Functions */
+function plus_minus(num) {
+  let result = num * (-1);
+  return result
+}
+function addition(x,y){
+  let result = x + y;
+  return result;
+}
+function subtraction(x, y) {
+  let result = x - y;
+  return result;
+}
+function division(x, y) {
+  let result = x / y;
+  return result;
+}
+function multiplication(x, y) {
+  let result = x * y;
+  return result;
+}
+function percentage(x, y) {
+  let result = x + y;
+  return result;
+}
+
+  /* Result
+  else if (event.target === equal) {
+  }
+*/
