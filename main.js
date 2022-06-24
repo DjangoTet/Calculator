@@ -35,11 +35,16 @@ buttons.addEventListener('click', function(event){
     numbers.second = true;
   }
 
-
 /* - - - - - Handle Numbers - - - - - - */
 
   /* Check that is number */
   let valid = true;
+  function switchNum(number){
+    if(numbers.second){
+
+    }
+  }
+
   function validateEvent(event){
     if (event.id === 'clear') {
       num = '';
