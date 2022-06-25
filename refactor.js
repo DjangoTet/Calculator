@@ -3,7 +3,8 @@ obj = {
   num1:'',
   num2:'',
   firstEntry: 'true',
-  currentOperator: ''
+  currentOperator: '',
+  result: ''
 }
 
 /* User Interface */
@@ -25,95 +26,79 @@ let result;
 
 buttons.addEventListener('click', function (event) {
   if (event.target.id === 'clear') {
-    console.log(obj);
-    obj.num1 = '';
-    obj.num2 = '';
-    obj.firstEntry = 'true';
-    obj.currentOperator = '';
-    firstNum = '';
-    secondNum = '';
-    onScreen.textContent = '';
-    onScreenOperator.textContent = '';
+    clear();
+  }else if (event.target === equal) {
+    if (obj.firstEntry === 'true') {
+      return obj;
+    } else if (obj.firstEntry === 'false') {
+      switch (obj.currentOperator) {
+        case "plusMinus":
+          {
+            plus_minus(obj.num1, obj.num2);
+          }
+          break;
+        case "add":
+          {
+            addition(obj.num1, obj.num2);
+          }
+          break;
+        case "subtract":
+          {
+            subtraction(obj.num1, obj.num2);
+          }
+          break;
+        case "multiply":
+          {
+            multiplication(obj.num1, obj.num2);
+          }
+          break;
+        case "divide":
+          {
+            division(obj.num1, obj.num2);
+          }
+          break;
+        case "percent":
+          {
+            percentage(obj.num1, obj.num2);
+          }
+          break;
+      }
+      onScreen.textContent = obj.result;
+      onScreenOperator.textContent = '';
+    }
     return obj;
-  }
-  if (event.target === plusMinus) {
+  }else if (event.target === plusMinus) {
     onScreenOperator.textContent = decodeEntities('&plusmn;');
     obj.firstEntry = 'false';
     obj.currentOperator = 'plusMinus';
     return obj
-  }
-  if (event.target === plus) {
+  } else if (event.target === plus) {
     onScreenOperator.textContent = decodeEntities('&plus;');
     obj.firstEntry = 'false';
     obj.currentOperator = 'add';
     return obj
-  }
-  else if (event.target === minus) {
+  } else if (event.target === minus) {
     onScreenOperator.textContent = decodeEntities('&minus;');
     obj.firstEntry = 'false';
     obj.currentOperator = 'subtract';
     return obj;
-  }
-  else if (event.target === divide) {
+  } else if (event.target === divide) {
     onScreenOperator.textContent = decodeEntities('&divide;');
     obj.firstEntry = 'false';
     obj.currentOperator = 'divide';
     return obj;
-  }
-  else if (event.target === times) {
+  } else if (event.target === times) {
     onScreenOperator.textContent = decodeEntities('&times;');
     obj.firstEntry = 'false';
     obj.currentOperator = 'multiply';
     return obj;
-  }
-  if (event.target === percent) {
+  } else if (event.target === percent) {
     onScreenOperator.textContent = decodeEntities('&percnt;');
     obj.firstEntry = 'false';
     obj.currentOperator = 'percent';
     return obj
   }
 
-
-  else if (event.target === equal) {
-    if (obj.firstEntry === 'true') {
-      return obj;
-    } else if (obj.firstEntry === 'false'){
-      switch (obj.currentOperator){
-        case "plusMinus":
-        {
-            onScreenOperator.textContent = '&plusmn;';
-        }
-        break;
-        case "add":
-          {
-          }
-          break;
-        case "subtract":
-          {
-          }
-          break;
-        case "multiply":
-          {
-          }
-          break;
-        case "divide":
-          {
-          }
-          break;
-        case "percent":
-          {
-          }
-          break;
-      }
-    }
-  }
-
-
-  else if (event.target === percent) {
-    obj.firstEntry = 'false';
-    obj.currentOperator = 'percent';
-    return obj;
-  }
   if (obj.firstEntry === 'true') {
     if (event.target.className === 'txt' && firstNum.split('').length < 10) {
       firstNum += event.target.textContent;
@@ -140,34 +125,39 @@ buttons.addEventListener('click', function (event) {
   }
 });
 
-console.log(obj);
 /* Math Functions */
 function plus_minus(num) {
   let result = num * (-1);
+  obj.result = result;
   return result
 }
 function addition(x, y) {
   result = x + y;
-  console.log(result);
+  obj.result = result;
   return result;
 }
 function subtraction(x, y) {
   result = x - y;
+  obj.result = result;
   return result;
 }
 function division(x, y) {
   result = x / y;
+  obj.result = result;
   return result;
 }
 function multiplication(x, y) {
   result = x * y;
+  obj.result = result;
   return result;
 }
 function percentage(x, y) {
   result = x + y;
+  obj.result = result;
   return result;
 }
 
+/* Utility Functions */
 var decodeEntities = (function () {
   // this prevents any overhead from creating the object each time
   var element = document.createElement('div');
@@ -187,3 +177,16 @@ var decodeEntities = (function () {
 
   return decodeHTMLEntities;
 })();
+
+function clear(){
+  obj.num1 = '';
+  obj.num2 = '';
+  obj.firstEntry = 'true';
+  obj.currentOperator = '';
+  obj.result;
+  firstNum = '';
+  secondNum = '';
+  onScreen.textContent = '';
+  onScreenOperator.textContent = '';
+  return obj;
+}
