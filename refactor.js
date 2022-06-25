@@ -2,12 +2,14 @@
 obj = {
   num1:'',
   num2:'',
-  firstEntry: 'true'
+  firstEntry: 'true',
+  currentOperator: ''
 }
 
 /* User Interface */
 let onScreen = document.getElementById('display');
 let buttons = document.getElementById('buttons');
+let onScreenOperator = document.getElementById('operator');
 
 /* Math Operators */
 let plusMinus = document.getElementById('plusMinus');
@@ -17,35 +19,102 @@ let divide = document.getElementById('divide');
 let times = document.getElementById('times');
 let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
-let currentOperator;
 let firstNum = '';
 let secondNum = '';
 let result;
 
 buttons.addEventListener('click', function (event) {
-  if (event.target === plus) {
+  if (event.target.id === 'clear') {
+    console.log(obj);
+    obj.num1 = '';
+    obj.num2 = '';
+    obj.firstEntry = 'true';
+    obj.currentOperator = '';
+    firstNum = '';
+    secondNum = '';
+    onScreen.textContent = '';
+    onScreenOperator.textContent = '';
+    return obj;
+  }
+  if (event.target === plusMinus) {
+    onScreenOperator.textContent = decodeEntities('&plusmn;');
     obj.firstEntry = 'false';
+    obj.currentOperator = 'plusMinus';
+    return obj
+  }
+  if (event.target === plus) {
+    onScreenOperator.textContent = decodeEntities('&plus;');
+    obj.firstEntry = 'false';
+    obj.currentOperator = 'add';
     return obj
   }
   else if (event.target === minus) {
+    onScreenOperator.textContent = decodeEntities('&minus;');
     obj.firstEntry = 'false';
+    obj.currentOperator = 'subtract';
     return obj;
   }
   else if (event.target === divide) {
+    onScreenOperator.textContent = decodeEntities('&divide;');
     obj.firstEntry = 'false';
+    obj.currentOperator = 'divide';
     return obj;
   }
   else if (event.target === times) {
+    onScreenOperator.textContent = decodeEntities('&times;');
     obj.firstEntry = 'false';
+    obj.currentOperator = 'multiply';
     return obj;
   }
-  else if (event.target === percent) {
+  if (event.target === percent) {
+    onScreenOperator.textContent = decodeEntities('&percnt;');
     obj.firstEntry = 'false';
-    return obj;
+    obj.currentOperator = 'percent';
+    return obj
   }
 
+
+  else if (event.target === equal) {
+    if (obj.firstEntry === 'true') {
+      return obj;
+    } else if (obj.firstEntry === 'false'){
+      switch (obj.currentOperator){
+        case "plusMinus":
+        {
+            onScreenOperator.textContent = '&plusmn;';
+        }
+        break;
+        case "add":
+          {
+          }
+          break;
+        case "subtract":
+          {
+          }
+          break;
+        case "multiply":
+          {
+          }
+          break;
+        case "divide":
+          {
+          }
+          break;
+        case "percent":
+          {
+          }
+          break;
+      }
+    }
+  }
+
+
+  else if (event.target === percent) {
+    obj.firstEntry = 'false';
+    obj.currentOperator = 'percent';
+    return obj;
+  }
   if (obj.firstEntry === 'true') {
-    console.log(obj);
     if (event.target.className === 'txt' && firstNum.split('').length < 10) {
       firstNum += event.target.textContent;
       if (firstNum.split('').length >= 8) {
@@ -71,6 +140,7 @@ buttons.addEventListener('click', function (event) {
   }
 });
 
+console.log(obj);
 /* Math Functions */
 function plus_minus(num) {
   let result = num * (-1);
@@ -97,3 +167,23 @@ function percentage(x, y) {
   result = x + y;
   return result;
 }
+
+var decodeEntities = (function () {
+  // this prevents any overhead from creating the object each time
+  var element = document.createElement('div');
+
+  function decodeHTMLEntities(str) {
+    if (str && typeof str === 'string') {
+      // strip script/html tags
+      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+      element.innerHTML = str;
+      str = element.textContent;
+      element.textContent = '';
+    }
+
+    return str;
+  }
+
+  return decodeHTMLEntities;
+})();
