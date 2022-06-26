@@ -1,6 +1,19 @@
-let display = document.getElementById('display');
-let num = display.textContent;
+/* ----- Calculator Project 3.0 -----*/
+
+/* Data */
+obj = {
+  num1: '',
+  num2: '',
+  firstEntry: true,
+  currentOperator: '',
+  result: '',
+  equal: false
+}
+
+/* User Interface */
+let onScreen = document.getElementById('display');
 let buttons = document.getElementById('buttons');
+let onScreenOperator = document.getElementById('operator');
 
 /* Math Operators */
 let plusMinus = document.getElementById('plusMinus');
@@ -10,102 +23,163 @@ let divide = document.getElementById('divide');
 let times = document.getElementById('times');
 let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
-let currentOperator;
+let clear = document.getElementById('clear');
 
+let firstNum = '';
+let secondNum = '';
+let result;
 
-/*Checking that the user is actually clicking a button. If user clicks the clear button, all content is erased. */
-
-buttons.addEventListener('click', function(event){
-
-  /* - - - - - Handle Operators - - - - - - */
-
-  if (event.target === plus) {
-    numbers.second = true;
-  }
-  else if (event.target === minus) {
-    numbers.second = true;
-  }
-  else if (event.target === divide) {
-    numbers.second = true;
-  }
-  else if (event.target === times) {
-    numbers.second = true;
-  }
-  else if (event.target === percent) {
-    numbers.second = true;
-  }
-
-/* - - - - - Handle Numbers - - - - - - */
-
-  /* Check that is number */
-  let valid = true;
-  function switchNum(number){
-    if(numbers.second){
-
+buttons.addEventListener('click',function(event){
+  if (event.target.className === 'operator'){
+    saveOperator();
+  } else{
+    switch (obj.firstEntry) {
+      case true: {
+        saveNum1(event);
+      }
+        break;
+      case false: {
+        saveNum2(event);
+      }
+        break;
     }
   }
+});
 
-  function validateEvent(event){
-    if (event.id === 'clear') {
-      num = '';
-      display.textContent = null;
-      valid = false;
-      return false;
-    }
-    if (event.className === 'row'){
-      valid = false;
-      return false;
-    }
-    else{
-      valid = true;
-    }
-  }
-  validateEvent(event.target);
-
-  /*Check that number fits screen */
-  function numLength(number){
-    if (valid === false){
-      return false;
-    }
-    if (number.split('').length >= 8) {
-      display.className = 'nine';
-    }
-    if (number.split('').length >= 10) {
-      return false;
-    }
-    else {
-      num += event.target.textContent;
-      display.textContent = num;
-    }
-    return num;
-  }
-  numLength(num);
-
+equal.addEventListener('click', function () {
+  solve();
 })
 
+
+/* Utility Functions */
+function saveNum1(){
+  obj.num1 += event.target.textContent;
+};
+
+function saveNum2(){
+  obj.num2 += event.target.textContent;
+};
+
+function saveOperator(){
+  obj.firstEntry = false;
+
+  switch (event.target){
+    case percent:
+      {
+        obj.currentOperator = 'percent';
+        console.log('percent');
+      }
+      break;
+    case clear:
+      {
+        obj.currentOperator = 'clear';
+        console.log('clear');
+      }
+      break;
+    case plusMinus:
+      {
+        obj.currentOperator = 'plusMinus';
+        console.log('plusMinus');
+      }
+      break;
+    case plus:
+      {
+        obj.currentOperator = 'plus';
+        console.log('plus');
+      }
+      break;
+    case minus:
+      {
+        obj.currentOperator = 'minus';
+        console.log('minus');
+      }
+      break;
+    case divide:
+      {
+        obj.currentOperator = 'divide';
+        console.log('divide');
+      }
+      break;
+    case times:
+      {
+        obj.currentOperator = 'times';
+        console.log('times');
+      }
+      break;
+  }
+};
+
+function solve(){
+  let newNum1 = parseInt(obj.num1);
+  let newNum2 = parseInt(obj.num2);
+  switch (obj.currentOperator) {
+    case 'plusMinus':
+      {
+        plus_minus(newNum1, newNum2);
+        console.log(obj.result);
+      }
+      break;
+    case 'plus':
+      {
+        addition(newNum1, newNum2);
+        console.log(obj.result);
+      }
+      break;
+    case 'minus':
+      {
+        subtraction(newNum1, newNum2);
+        console.log(obj.result);
+      }
+      break;
+    case 'divide':
+      {
+        division(newNum1, newNum2);
+        console.log(obj.result);
+      }
+      break;
+    case 'times':
+      {
+        multiplication(newNum1, newNum2);
+        console.log(obj.result);
+      }
+      break;
+    case 'percent':
+      {
+        percentage(newNum1, newNum2);
+        console.log(obj.result);
+      }
+      break;
+  }
+}
 
 /* Math Functions */
 function plus_minus(num) {
   let result = num * (-1);
+  obj.result = result;
   return result
 }
-function addition(x,y){
-  let result = x + y;
+function addition(x, y) {
+  result = x + y;
+  obj.result = result;
   return result;
 }
 function subtraction(x, y) {
-  let result = x - y;
+  result = x - y;
+  obj.result = result;
   return result;
 }
 function division(x, y) {
-  let result = x / y;
+  result = x / y;
+  obj.result = result;
   return result;
 }
 function multiplication(x, y) {
-  let result = x * y;
+  result = x * y;
+  obj.result = result;
   return result;
 }
 function percentage(x, y) {
-  let result = x + y;
+  result = x + y;
+  obj.result = result;
   return result;
 }

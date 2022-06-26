@@ -20,6 +20,8 @@ let divide = document.getElementById('divide');
 let times = document.getElementById('times');
 let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
+let clear = document.getElementById('clear');
+
 let firstNum = '';
 let secondNum = '';
 let result;
@@ -31,71 +33,45 @@ buttons.addEventListener('click', function (event) {
     if (obj.firstEntry === 'true') {
       return obj;
     } else if (obj.firstEntry === 'false') {
-      switch (obj.currentOperator) {
-        case "plusMinus":
-          {
-            plus_minus(obj.num1, obj.num2);
-          }
-          break;
-        case "add":
-          {
-            addition(obj.num1, obj.num2);
-          }
-          break;
-        case "subtract":
-          {
-            subtraction(obj.num1, obj.num2);
-          }
-          break;
-        case "multiply":
-          {
-            multiplication(obj.num1, obj.num2);
-          }
-          break;
-        case "divide":
-          {
-            division(obj.num1, obj.num2);
-          }
-          break;
-        case "percent":
-          {
-            percentage(obj.num1, obj.num2);
-          }
-          break;
-      }
-      onScreen.textContent = obj.result;
-      onScreenOperator.textContent = '';
+      resolve();
     }
     return obj;
-  }else if (event.target === plusMinus) {
+  }
+  else if (event.target === plusMinus) {
     onScreenOperator.textContent = decodeEntities('&plusmn;');
-    obj.firstEntry = 'false';
     obj.currentOperator = 'plusMinus';
+    catchUp();
+    obj.firstEntry = 'false';
     return obj
   } else if (event.target === plus) {
     onScreenOperator.textContent = decodeEntities('&plus;');
-    obj.firstEntry = 'false';
     obj.currentOperator = 'add';
+    catchUp();
+    obj.firstEntry = 'false';
     return obj
   } else if (event.target === minus) {
     onScreenOperator.textContent = decodeEntities('&minus;');
-    obj.firstEntry = 'false';
     obj.currentOperator = 'subtract';
+    catchUp();
+    obj.firstEntry = 'false';
     return obj;
   } else if (event.target === divide) {
     onScreenOperator.textContent = decodeEntities('&divide;');
-    obj.firstEntry = 'false';
     obj.currentOperator = 'divide';
+    catchUp();
+    obj.firstEntry = 'false';
     return obj;
   } else if (event.target === times) {
     onScreenOperator.textContent = decodeEntities('&times;');
-    obj.firstEntry = 'false';
     obj.currentOperator = 'multiply';
+    catchUp();
+    obj.firstEntry = 'false';
     return obj;
   } else if (event.target === percent) {
     onScreenOperator.textContent = decodeEntities('&percnt;');
-    obj.firstEntry = 'false';
     obj.currentOperator = 'percent';
+    catchUp();
+    obj.firstEntry = 'false';
     return obj
   }
 
@@ -106,12 +82,16 @@ buttons.addEventListener('click', function (event) {
         display.className = 'nine';
       }
       let strToNum = parseInt(firstNum);
+
+      if(obj.num1 === ''){
       obj.num1 = strToNum;
+      }else if (obj.num1 !== ''){
+        obj.num1 = obj.num1 + strToNum;
+      }
       onScreen.textContent = firstNum;
       return obj;
     }
   } else if (obj.firstEntry === 'false') {
-    console.log(obj);
     if (event.target.className === 'txt' && secondNum.split('').length < 10) {
       secondNum += event.target.textContent;
       if (secondNum.split('').length >= 8) {
@@ -189,4 +169,51 @@ function clear(){
   onScreen.textContent = '';
   onScreenOperator.textContent = '';
   return obj;
+}
+
+function resolve(){
+  switch (obj.currentOperator) {
+    case "plusMinus":
+      {
+        plus_minus(obj.num1, obj.num2);
+      }
+      break;
+    case "add":
+      {
+        addition(obj.num1, obj.num2);
+      }
+      break;
+    case "subtract":
+      {
+        subtraction(obj.num1, obj.num2);
+      }
+      break;
+    case "multiply":
+      {
+        multiplication(obj.num1, obj.num2);
+      }
+      break;
+    case "divide":
+      {
+        division(obj.num1, obj.num2);
+      }
+      break;
+    case "percent":
+      {
+        percentage(obj.num1, obj.num2);
+      }
+      break;
+  }
+  onScreen.textContent = obj.result;
+  onScreenOperator.textContent = '';
+}
+
+function catchUp(){
+  if (obj.num1 !== '' && obj.num2 !== '') {
+    resolve()
+    obj.firstEntry = 'true';
+    obj.num2 = '';
+    obj.num1 = obj.result;
+    return obj;
+  }
 }
