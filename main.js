@@ -65,7 +65,16 @@ equal.addEventListener('click', function () {
 });
 
 /* Reset Device */
-clear.addEventListener('click', reset());
+clear.addEventListener('click', function(){
+  if (obj.num2 === '') {
+    onScreen.textContent = '';
+    reset();
+    return obj;
+  }
+  solve();
+  onScreen.textContent = '';
+  reset();
+});
 
 /* Input Handling Functions */
 function saveNum1(){
@@ -89,11 +98,6 @@ function saveOperator(){
       case percent:
         {
           obj.currentOperator = 'percent';
-        }
-        break;
-      case clear:
-        {
-          obj.currentOperator = 'clear';
         }
         break;
       case plusMinus:
