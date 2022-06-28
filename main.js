@@ -4,10 +4,9 @@
 obj = {
   num1: '',
   num2: '',
-  firstEntry: true,
+  firstEntry: 'true',
   currentOperator: '',
-  result: '',
-  equal: false
+  result: ''
 }
 
 /* User Interface */
@@ -29,14 +28,21 @@ let result;
 /* Switch to Determine Where Info is Stored */
 buttons.addEventListener('click',function(event){
   if (event.target.className === 'operator'){
+    console.log('1');
     saveOperator();
+  } else if(event.target.className === 'equal'){
+    return obj;
   } else{
+    console.log('2');
     switch (obj.firstEntry) {
-      case true: {
+      case 'true': {
+        console.log('3');
         saveNum1(event);
+        onScreen.textContent = obj.num1;
       }
         break;
-      case false: {
+      case 'false': {
+        console.log('4');
         saveNum2(event);
       }
         break;
@@ -47,119 +53,123 @@ buttons.addEventListener('click',function(event){
 /* Solve Current Equation */
 equal.addEventListener('click', function () {
   if(obj.num2 === ''){
-    console.log(obj.result);
+    console.log('5');
+    onScreen.textContent = obj.num1;
+    reset();
     return obj;
   }
+  console.log('6');
   solve();
-})
+  onScreen.textContent = obj.num1;
+  reset();
+});
+
+/* Reset Device */
+clear.addEventListener('click', reset());
 
 /* Input Handling Functions */
 function saveNum1(){
+  console.log('7');
   obj.num1 += event.target.textContent;
-  console.log(obj.num1);
 };
-
 function saveNum2(){
+  console.log('8');
   obj.num2 += event.target.textContent;
   solve();
   obj.num1 = result;
-  console.log(obj);
-  obj.firstEntry = true;
+  obj.firstEntry = 'true';
+  onScreen.textContent = obj.num2;
   obj.num2 = '';
 };
-
 function saveOperator(){
-  if(obj.firstEntry === true){
-    obj.firstEntry = false;
+  if(obj.firstEntry === 'true'){
+    console.log('9');
+    obj.firstEntry = 'false';
     switch (event.target){
       case percent:
         {
           obj.currentOperator = 'percent';
-          console.log('percent');
         }
         break;
       case clear:
         {
           obj.currentOperator = 'clear';
-          console.log('clear');
         }
         break;
       case plusMinus:
         {
           obj.currentOperator = 'plusMinus';
-          console.log('plusMinus');
         }
         break;
       case plus:
         {
           obj.currentOperator = 'plus';
-          console.log('plus');
         }
         break;
       case minus:
         {
           obj.currentOperator = 'minus';
-          console.log('minus');
         }
         break;
       case divide:
         {
           obj.currentOperator = 'divide';
-          console.log('divide');
         }
         break;
       case times:
         {
           obj.currentOperator = 'times';
-          console.log('times');
         }
         break;
     }
   }
 };
-
 function solve(){
-
   let newNum1 = parseInt(obj.num1);
   let newNum2 = parseInt(obj.num2);
+  console.log('10');
   switch (obj.currentOperator) {
     case 'plusMinus':
       {
         plus_minus(newNum1, newNum2);
-        console.log(obj.result);
       }
       break;
     case 'plus':
       {
         addition(newNum1, newNum2);
-        console.log(obj.result);
       }
       break;
     case 'minus':
       {
         subtraction(newNum1, newNum2);
-        console.log(obj.result);
       }
       break;
     case 'divide':
       {
         division(newNum1, newNum2);
-        console.log(obj.result);
       }
       break;
     case 'times':
       {
         multiplication(newNum1, newNum2);
-        console.log(obj.result);
       }
       break;
     case 'percent':
       {
         percentage(newNum1, newNum2);
-        console.log(obj.result);
       }
       break;
   }
+}
+function reset() {
+  console.log('11');
+  obj.num1 = '';
+  obj.num2 = '';
+  obj.result = '';
+  result = '';
+  obj.firstEntry = 'true';
+  obj.currentOperator = '';
+  return obj;
 }
 
 /* Math Functions */
