@@ -25,6 +25,7 @@ let result;
 
 /* Switch to Determine Where Info is Stored */
 buttons.addEventListener('click',function(event){
+  console.log('first', obj);
   if (obj.num1.length >= 7) {
     onScreen.className = 'nine';
   }
@@ -33,6 +34,15 @@ buttons.addEventListener('click',function(event){
   }
   if (event.target.className === 'operator'){
     saveOperator();
+    if(obj.num2){
+      console.log(obj);
+      solve(obj.num1, obj.num2);
+      obj.num1 = result;
+      obj.num2 = '';
+      obj.firstEntry = 'true';
+      onScreen.textContent = obj.num1;
+      return obj;
+    }
   } else if(event.target.className === 'equal'){
     return obj;
   } else if (event.target.className === 'row'){
@@ -53,13 +63,15 @@ buttons.addEventListener('click',function(event){
 });
 /* Solve Current Equation */
 equal.addEventListener('click', function () {
-  if(obj.num2 === ''){
+  if (obj.num2) {
+    console.log(obj);
+    solve(obj.num1, obj.num2);
+    obj.num1 = result;
+    obj.num2 = '';
+    obj.firstEntry = 'true';
     onScreen.textContent = obj.num1;
     return obj;
   }
-  solve();
-  onScreen.textContent = obj.num1;
-  reset();
 });
 /* Reset Device */
 clear.addEventListener('click', function(){
@@ -68,22 +80,25 @@ clear.addEventListener('click', function(){
     reset();
     return obj;
   }
-  solve();
   onScreen.textContent = '';
   reset();
 });
 
 /* Input Handling Functions */
 function saveNum1(){
+  if(obj.num1){
+    console.log('hey');
+    let newNum = parseInt(event.target.textContent);
+    let convert = parseInt(obj.num1);
+    obj.num1 = newNum + convert;
+    console.log(obj);
+    return obj;
+  }
   obj.num1 += event.target.textContent;
 };
 function saveNum2(){
   obj.num2 += event.target.textContent;
-  solve();
-  obj.num1 = result;
-  obj.firstEntry = 'true';
   onScreen.textContent = obj.num2;
-  obj.num2 = '';
 };
 function saveOperator(){
   if(obj.firstEntry === 'true'){
@@ -122,7 +137,7 @@ function saveOperator(){
     }
   }
 };
-function solve(){
+function solve(num1, num2){
   let newNum1 = parseInt(obj.num1);
   let newNum2 = parseInt(obj.num2);
   switch (obj.currentOperator) {
@@ -168,6 +183,17 @@ function reset() {
   obj.currentOperator = '';
   return obj;
 }
+function updateFirstNum(){
+  if (obj.num2) {
+    console.log(obj);
+    solve(obj.num1, obj.num2);
+    obj.num1 = result;
+    obj.num2 = '';
+    obj.firstEntry = 'true';
+    onScreen.textContent = obj.num1;
+    return obj;
+  }
+}
 
 /* Math Functions */
 function plus_minus(num) {
@@ -181,9 +207,6 @@ function plus_minus(num) {
 function addition(x, y) {
   result = x + y;
   obj.result = result;
-  console.log('x', x);
-  console.log('y', y);
-  console.log('result', result);
   return result;
 }
 function subtraction(x, y) {
