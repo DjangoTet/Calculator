@@ -22,6 +22,12 @@ let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
 let clear = document.getElementById('clear');
 
+buttons.addEventListener("dblclick", event => {
+  if (event.target.className === 'operator') {
+    console.log('hey');
+    return obj;
+  }
+})
 buttons.addEventListener('click',function(event){
   // Here screen display space is checked
   if (obj.num1.length >= 7) {
@@ -54,7 +60,6 @@ buttons.addEventListener('click',function(event){
     }
   }
 });
-
 // More complicated math operators handled here
 clear.addEventListener('click', function(){
   reset();
@@ -65,18 +70,15 @@ plusMinus.addEventListener('click', function () {
     return obj;
   }
   if(obj.firstEntry === 'true'){
-    console.log('one');
     let num = parseInt(obj.num1);
     num = num * -1;
     obj.num1 = num;
     onScreen.textContent = obj.num1;
   }
   if(obj.firstEntry === 'false'){
-    console.log('hey');
     let num = parseInt(obj.num2);
     num = num * -1;
     obj.num2 = num;
-    console.log(obj.num2);
     onScreen.textContent = obj.num2;
   }
 });
@@ -88,14 +90,12 @@ percent.addEventListener('click', function () {
     let num = parseInt(obj.num1);
     num = num / 100;
     obj.num1 = num;
-    console.log('percent event', obj.num1);
     onScreen.textContent = obj.num1;
   }
   if (obj.firstEntry === 'false') {
     let num = parseInt(obj.num2);
     num = num / 100;
     obj.num2 = num;
-    console.log('percent event', obj.num2);
     onScreen.textContent = obj.num2;
   }
   return obj;
@@ -158,8 +158,6 @@ function solve(num1, num2){
       break;
     case 'plus':
       {
-        console.log(typeof newNum1, newNum1);
-        console.log(typeof newNum1, newNum2);
         addition(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
@@ -206,26 +204,46 @@ function reset() {
 // Math functions
 function addition(x, y) {
   result = x + y;
+  if (result % 1 != 0) {
+    result = (Math.floor(100 * result) / 100).toFixed(2);
+  }
   obj.result = String(result);
   return result;
 }
 function subtraction(x, y) {
   result = x - y;
+  if (result % 1 != 0) {
+    result = (Math.floor(100 * result) / 100).toFixed(2);
+  }
   obj.result = String(result);
   return result;
 }
 function division(x, y) {
   result = x / y;
+  if (result % 1 != 0) {
+    result = (Math.floor(100 * result) / 100).toFixed(2);
+  }
   obj.result = String(result);
   return result;
 }
 function multiplication(x, y) {
   result = x * y;
+  if (result % 1 != 0) {
+    result = (Math.floor(100 * result) / 100).toFixed(2);
+  }
   obj.result = String(result);
   return result;
 }
 function percentage(x, y) {
   result = x + y;
+  if (result % 1 != 0) {
+    result = (Math.floor(100 * result) / 100).toFixed(2);
+  }
   obj.result = String(result);
   return result;
+}
+function toFixed(num, fixed) {
+  fixed = fixed || 0;
+  fixed = Math.pow(10, fixed);
+  return Math.floor(num * fixed) / fixed;
 }
