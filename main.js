@@ -205,7 +205,11 @@ function reset() {
 function addition(x, y) {
   result = x + y;
   if (result % 1 != 0) {
-    result = (Math.floor(100 * result) / 100).toFixed(2);
+    result = (Math.floor(100 * result) / 100).toFixed(3);
+  }
+  if (String(result.length > 10)) {
+    result = result.toExponential(2);
+    onScreen.className = 'nine';
   }
   obj.result = String(result);
   return result;
@@ -213,7 +217,11 @@ function addition(x, y) {
 function subtraction(x, y) {
   result = x - y;
   if (result % 1 != 0) {
-    result = (Math.floor(100 * result) / 100).toFixed(2);
+    result = (Math.floor(100 * result) / 100).toFixed(3);
+  }
+  if (String(result.length > 10)) {
+    result = result.toExponential(2);
+    onScreen.className = 'nine';
   }
   obj.result = String(result);
   return result;
@@ -221,7 +229,11 @@ function subtraction(x, y) {
 function division(x, y) {
   result = x / y;
   if (result % 1 != 0) {
-    result = (Math.floor(100 * result) / 100).toFixed(2);
+    result = (Math.floor(100 * result) / 100).toFixed(3);
+  }
+  if (String(result.length > 10)) {
+    result = result.toExponential(2);
+    onScreen.className = 'nine';
   }
   obj.result = String(result);
   return result;
@@ -229,7 +241,11 @@ function division(x, y) {
 function multiplication(x, y) {
   result = x * y;
   if (result % 1 != 0) {
-    result = (Math.floor(100 * result) / 100).toFixed(2);
+    result = (Math.floor(100 * result) / 100).toFixed(3);
+  }
+  if (String(result.length > 10)) {
+    result = result.toExponential(2);
+    onScreen.className = 'nine';
   }
   obj.result = String(result);
   return result;
@@ -237,7 +253,11 @@ function multiplication(x, y) {
 function percentage(x, y) {
   result = x + y;
   if (result % 1 != 0) {
-    result = (Math.floor(100 * result) / 100).toFixed(2);
+    result = (Math.floor(100 * result) / 100).toFixed(3);
+  }
+  if (String(result.length > 10)) {
+    result = result.toExponential(2);
+    onScreen.className = 'nine';
   }
   obj.result = String(result);
   return result;
