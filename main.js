@@ -22,12 +22,7 @@ let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
 let clear = document.getElementById('clear');
 
-buttons.addEventListener("dblclick", event => {
-  if (event.target.className === 'operator') {
-    console.log('hey');
-    return obj;
-  }
-})
+
 buttons.addEventListener('click',function(event){
   // Here screen display space is checked
   if (obj.num1.length >= 7) {
@@ -38,6 +33,10 @@ buttons.addEventListener('click',function(event){
   }
   //Simple math operators are handled here
   if (event.target.className === 'operator'){
+    if(obj.currentOperator){
+      saveOperator();
+      return obj;
+    }
     saveOperator();
     return obj;
   }
@@ -118,7 +117,9 @@ function saveNum2(){
 };
 function saveOperator(){
     if(obj.firstEntry === 'false'){
+      if(obj.num1 && obj.num2){
       solve(obj.num1, obj.num2);
+      }
     }
     obj.firstEntry = 'false';
     switch (event.target){
@@ -207,10 +208,6 @@ function addition(x, y) {
   if (result % 1 != 0) {
     result = (Math.floor(100 * result) / 100).toFixed(3);
   }
-  if (String(result.length > 10)) {
-    result = result.toExponential(2);
-    onScreen.className = 'nine';
-  }
   obj.result = String(result);
   return result;
 }
@@ -218,10 +215,6 @@ function subtraction(x, y) {
   result = x - y;
   if (result % 1 != 0) {
     result = (Math.floor(100 * result) / 100).toFixed(3);
-  }
-  if (String(result.length > 10)) {
-    result = result.toExponential(2);
-    onScreen.className = 'nine';
   }
   obj.result = String(result);
   return result;
@@ -231,10 +224,6 @@ function division(x, y) {
   if (result % 1 != 0) {
     result = (Math.floor(100 * result) / 100).toFixed(3);
   }
-  if (String(result.length > 10)) {
-    result = result.toExponential(2);
-    onScreen.className = 'nine';
-  }
   obj.result = String(result);
   return result;
 }
@@ -242,10 +231,6 @@ function multiplication(x, y) {
   result = x * y;
   if (result % 1 != 0) {
     result = (Math.floor(100 * result) / 100).toFixed(3);
-  }
-  if (String(result.length > 10)) {
-    result = result.toExponential(2);
-    onScreen.className = 'nine';
   }
   obj.result = String(result);
   return result;
@@ -255,15 +240,12 @@ function percentage(x, y) {
   if (result % 1 != 0) {
     result = (Math.floor(100 * result) / 100).toFixed(3);
   }
-  if (String(result.length > 10)) {
-    result = result.toExponential(2);
-    onScreen.className = 'nine';
-  }
   obj.result = String(result);
   return result;
 }
-function toFixed(num, fixed) {
-  fixed = fixed || 0;
-  fixed = Math.pow(10, fixed);
-  return Math.floor(num * fixed) / fixed;
-}
+
+
+//if (String(result.length) >= 10) {
+//  result = result.toExponential(2);
+//  onScreen.className = 'nine';
+//}
