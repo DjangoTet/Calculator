@@ -12,7 +12,7 @@ let onScreen = document.getElementById('display');
 let buttons = document.getElementById('buttons');
 let onScreenOperator = document.getElementById('operator');
 
-// Math Operator Buttons
+// Math operator buttons on the calculator
 let plusMinus = document.getElementById('plusMinus');
 let plus = document.getElementById('plus');
 let minus = document.getElementById('minus');
@@ -22,15 +22,16 @@ let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
 let clear = document.getElementById('clear');
 
-
+// Something was clicked on the calculator
 buttons.addEventListener('click',function(event){
-  // Here screen display space is checked
+  // Here remaining screen space is checked
   if (obj.num1.length >= 7) {
     onScreen.className = 'nine';
   }
   if (obj.num1.length >= 10){
     return obj;
   }
+
   //Simple math operators are handled here
   if (event.target.className === 'operator'){
     if(obj.currentOperator){
@@ -45,6 +46,7 @@ buttons.addEventListener('click',function(event){
     obj.firstEntry = 'true';
     return obj;
   }
+
   // Only actual number clicks are handled, not the parent containers
   if (event.target.className !== 'row' && event.target.className !== 'buttons'){
     switch (obj.firstEntry) {
@@ -59,6 +61,7 @@ buttons.addEventListener('click',function(event){
     }
   }
 });
+
 // More complicated math operators handled here
 clear.addEventListener('click', function(){
   reset();
@@ -100,7 +103,7 @@ percent.addEventListener('click', function () {
   return obj;
 });
 
-// Input handling functions
+//Saving user input to the data obj
 function saveNum1(){
   if(event.target !== plusMinus){
   obj.num1 += event.target.textContent;
@@ -115,6 +118,8 @@ function saveNum2(){
   return obj;
   }
 };
+
+//saveOperator will be the point where input switches from num1 to num2
 function saveOperator(){
     if(obj.firstEntry === 'false'){
       if(obj.num1 && obj.num2){
@@ -243,9 +248,3 @@ function percentage(x, y) {
   obj.result = String(result);
   return result;
 }
-
-
-//if (String(result.length) >= 10) {
-//  result = result.toExponential(2);
-//  onScreen.className = 'nine';
-//}
