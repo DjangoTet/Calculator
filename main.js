@@ -57,7 +57,6 @@ buttons.addEventListener('click',function(event){
 
 // More complicated math operators handled here
 clear.addEventListener('click', function(){
-  console.log('hey');
   reset();
   return obj;
 });
@@ -89,12 +88,14 @@ percent.addEventListener('click', function () {
     let num = parseInt(obj.num1);
     num = num / 100;
     obj.num1 = num;
+    console.log('percent event', obj.num1);
     onScreen.textContent = obj.num1;
   }
   if (obj.firstEntry === 'false') {
     let num = parseInt(obj.num2);
     num = num / 100;
-    obj.num2 = String(num);
+    obj.num2 = num;
+    console.log('percent event', obj.num2);
     onScreen.textContent = obj.num2;
   }
   return obj;
@@ -144,8 +145,8 @@ function saveOperator(){
     }
 };
 function solve(num1, num2){
-    let newNum1 = parseInt(obj.num1);
-    let newNum2 = parseInt(obj.num2);
+  let newNum1 = parseFloat(obj.num1);
+  let newNum2 = parseFloat(obj.num2);
   switch (obj.currentOperator) {
     case 'plusMinus':
       {
@@ -157,6 +158,8 @@ function solve(num1, num2){
       break;
     case 'plus':
       {
+        console.log(typeof newNum1, newNum1);
+        console.log(typeof newNum1, newNum2);
         addition(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
@@ -202,7 +205,6 @@ function reset() {
 
 // Math functions
 function addition(x, y) {
-  console.log(x, y);
   result = x + y;
   obj.result = String(result);
   return result;
