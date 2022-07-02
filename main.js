@@ -1,4 +1,4 @@
-/* Data */
+// Data
 obj = {
   num1: '',
   num2: '',
@@ -7,12 +7,12 @@ obj = {
   result: ''
 }
 
-/* User Interface */
+// User interface, screen and buttons
 let onScreen = document.getElementById('display');
 let buttons = document.getElementById('buttons');
 let onScreenOperator = document.getElementById('operator');
 
-/* Math Operators */
+// Math Operator Buttons
 let plusMinus = document.getElementById('plusMinus');
 let plus = document.getElementById('plus');
 let minus = document.getElementById('minus');
@@ -21,99 +21,106 @@ let times = document.getElementById('times');
 let equal = document.getElementById('equal');
 let percent = document.getElementById('percent');
 let clear = document.getElementById('clear');
-let result;
 
-/* Switch to Determine Where Info is Stored */
 buttons.addEventListener('click',function(event){
-  console.log('first', obj);
+  // Here screen display space is checked
   if (obj.num1.length >= 7) {
     onScreen.className = 'nine';
   }
   if (obj.num1.length >= 10){
     return obj;
   }
+  //Simple math operators are handled here
   if (event.target.className === 'operator'){
     saveOperator();
-    if(obj.num2){
-      console.log(obj);
-      solve(obj.num1, obj.num2);
-      obj.num1 = result;
-      obj.num2 = '';
-      obj.firstEntry = 'true';
-      onScreen.textContent = obj.num1;
-      return obj;
-    }
-  } else if(event.target.className === 'equal'){
     return obj;
-  } else if (event.target.className === 'row'){
+  }
+  if(event.target.className === 'equal'){
+    solve(obj.num1, obj.num2);
+    obj.firstEntry = 'true';
     return obj;
-  } else{
+  }
+  // Only actual number clicks are handled, not the parent containers
+  if (event.target.className !== 'row' && event.target.className !== 'buttons'){
     switch (obj.firstEntry) {
       case 'true': {
-        saveNum1(event);
-        onScreen.textContent = obj.num1;
+        saveNum1();
       }
         break;
       case 'false': {
-        saveNum2(event);
+        saveNum2();
       }
         break;
     }
   }
 });
-/* Solve Current Equation */
-equal.addEventListener('click', function () {
-  if (obj.num2) {
-    console.log(obj);
-    solve(obj.num1, obj.num2);
-    obj.num1 = result;
-    obj.num2 = '';
-    obj.firstEntry = 'true';
-    onScreen.textContent = obj.num1;
+
+// More complicated math operators handled here
+clear.addEventListener('click', function(){
+  console.log('hey');
+  reset();
+  return obj;
+});
+plusMinus.addEventListener('click', function () {
+  if(obj.num1 === ''){
     return obj;
+  }
+  if(obj.firstEntry === 'true'){
+    console.log('one');
+    let num = parseInt(obj.num1);
+    num = num * -1;
+    obj.num1 = num;
+    onScreen.textContent = obj.num1;
+  }
+  if(obj.firstEntry === 'false'){
+    console.log('hey');
+    let num = parseInt(obj.num2);
+    num = num * -1;
+    obj.num2 = num;
+    console.log(obj.num2);
+    onScreen.textContent = obj.num2;
   }
 });
-/* Reset Device */
-clear.addEventListener('click', function(){
-  if (obj.num2 === '') {
-    onScreen.textContent = '';
-    reset();
+percent.addEventListener('click', function () {
+  if (obj.num1 === '') {
     return obj;
   }
-  onScreen.textContent = '';
-  reset();
+  if (obj.firstEntry === 'true') {
+    let num = parseInt(obj.num1);
+    num = num / 100;
+    obj.num1 = num;
+    onScreen.textContent = obj.num1;
+  }
+  if (obj.firstEntry === 'false') {
+    let num = parseInt(obj.num2);
+    num = num / 100;
+    obj.num2 = String(num);
+    onScreen.textContent = obj.num2;
+  }
+  return obj;
 });
 
-/* Input Handling Functions */
+// Input handling functions
 function saveNum1(){
-  if(obj.num1){
-    console.log('hey');
-    let newNum = parseInt(event.target.textContent);
-    let convert = parseInt(obj.num1);
-    obj.num1 = newNum + convert;
-    console.log(obj);
-    return obj;
-  }
+  if(event.target !== plusMinus){
   obj.num1 += event.target.textContent;
+  onScreen.textContent = obj.num1;
+  return obj;
+  }
 };
 function saveNum2(){
+  if (event.target !== plusMinus) {
   obj.num2 += event.target.textContent;
   onScreen.textContent = obj.num2;
+  return obj;
+  }
 };
 function saveOperator(){
-  if(obj.firstEntry === 'true'){
+    if(obj.firstEntry === 'false'){
+      solve(obj.num1, obj.num2);
+    }
     obj.firstEntry = 'false';
     switch (event.target){
-      case percent:
-        {
-          obj.currentOperator = 'percent';
-        }
-        break;
-      case plusMinus:
-        {
-          obj.currentOperator = 'plusMinus';
-        }
-        break;
       case plus:
         {
           obj.currentOperator = 'plus';
@@ -135,109 +142,88 @@ function saveOperator(){
         }
         break;
     }
-  }
 };
 function solve(num1, num2){
-  let newNum1 = parseInt(obj.num1);
-  let newNum2 = parseInt(obj.num2);
+    let newNum1 = parseInt(obj.num1);
+    let newNum2 = parseInt(obj.num2);
   switch (obj.currentOperator) {
     case 'plusMinus':
       {
         plus_minus(newNum1, newNum2);
+        obj.num1 = result;
+        obj.num2 = '';
+        onScreen.textContent = obj.num1;
       }
       break;
     case 'plus':
       {
         addition(newNum1, newNum2);
+        obj.num1 = result;
+        obj.num2 = '';
+        onScreen.textContent = obj.num1;
       }
       break;
     case 'minus':
       {
         subtraction(newNum1, newNum2);
+        obj.num1 = result;
+        obj.num2 = '';
+        onScreen.textContent = obj.num1;
       }
       break;
     case 'divide':
       {
         division(newNum1, newNum2);
+        obj.num1 = result;
+        obj.num2 = '';
+        onScreen.textContent = obj.num1;
       }
       break;
     case 'times':
       {
         multiplication(newNum1, newNum2);
-      }
-      break;
-    case 'percent':
-      {
-        percentage(newNum1, newNum2);
+        obj.num1 = result;
+        obj.num2 = '';
+        onScreen.textContent = obj.num1;
       }
       break;
   }
 }
 function reset() {
-  console.log('11');
   obj.num1 = '';
   obj.num2 = '';
   obj.result = '';
   result = '';
   obj.firstEntry = 'true';
   obj.currentOperator = '';
+  onScreen.textContent = '';
   return obj;
 }
-function updateFirstNum(){
-  if (obj.num2) {
-    console.log(obj);
-    solve(obj.num1, obj.num2);
-    obj.num1 = result;
-    obj.num2 = '';
-    obj.firstEntry = 'true';
-    onScreen.textContent = obj.num1;
-    return obj;
-  }
-}
 
-/* Math Functions */
-function plus_minus(num) {
-  let result = num * (-1);
-  obj.result = result;
-  console.log('x', x);
-  console.log('y', y);
-  console.log('result', result);
-  return result
-}
+// Math functions
 function addition(x, y) {
+  console.log(x, y);
   result = x + y;
-  obj.result = result;
+  obj.result = String(result);
   return result;
 }
 function subtraction(x, y) {
   result = x - y;
-  obj.result = result;
-  console.log('x', x);
-  console.log('y', y);
-  console.log('result', result);
+  obj.result = String(result);
   return result;
 }
 function division(x, y) {
   result = x / y;
-  obj.result = result;
-  console.log('x', x);
-  console.log('y', y);
-  console.log('result', result);
+  obj.result = String(result);
   return result;
 }
 function multiplication(x, y) {
   result = x * y;
-  obj.result = result;
-  console.log('x', x);
-  console.log('y', y);
-  console.log('result', result);
+  obj.result = String(result);
   return result;
 }
 function percentage(x, y) {
   result = x + y;
-  obj.result = result;
-  console.log('x', x);
-  console.log('y', y);
-  console.log('result', result);
+  obj.result = String(result);
   return result;
 }
