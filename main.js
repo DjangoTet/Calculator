@@ -28,9 +28,6 @@ buttons.addEventListener('click',function(event){
   if (obj.num1.length >= 7) {
     onScreen.className = 'nine';
   }
-  if (obj.num1.length >= 10){
-    return obj;
-  }
 
   //Simple math operators are handled here
   if (event.target.className === 'operator'){
@@ -105,14 +102,21 @@ percent.addEventListener('click', function () {
 
 //Saving user input to the data obj
 function saveNum1(){
-  if(event.target !== plusMinus){
+if(event.target !== plusMinus){
+  if (obj.num1.length + 1 > 10) {
+    return obj;
+  }
   obj.num1 += event.target.textContent;
   onScreen.textContent = obj.num1;
   return obj;
   }
 };
 function saveNum2(){
-  if (event.target !== plusMinus) {
+if (event.target !== plusMinus) {
+  if (obj.num2.length + 1 > 10) {
+    console.log('hey');
+    return obj;
+  }
   obj.num2 += event.target.textContent;
   onScreen.textContent = obj.num2;
   return obj;
@@ -159,7 +163,7 @@ function solve(num1, num2){
         plus_minus(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        if (String(result).length >= 10) {
+        if (String(result).length > 10) {
           onScreen.textContent = obj.num1.toExponential(2);
         } else {
           onScreen.textContent = obj.num1;
@@ -171,7 +175,7 @@ function solve(num1, num2){
         addition(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        if (String(result).length >= 10) {
+        if (String(result).length > 10) {
           onScreen.textContent = obj.num1.toExponential(2);
         } else {
           onScreen.textContent = obj.num1;
@@ -183,7 +187,7 @@ function solve(num1, num2){
         subtraction(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        if (String(result).length >= 10) {
+        if (String(result).length > 10) {
           onScreen.textContent = obj.num1.toExponential(2);
         } else {
           onScreen.textContent = obj.num1;
@@ -195,7 +199,7 @@ function solve(num1, num2){
         division(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        if (String(result).length >= 10) {
+        if (String(result).length > 10) {
           onScreen.textContent = obj.num1.toExponential(2);
         } else {
           onScreen.textContent = obj.num1;
@@ -207,7 +211,7 @@ function solve(num1, num2){
         multiplication(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        if(String(result).length >= 10){
+        if(String(result).length > 10){
           onScreen.textContent = obj.num1.toExponential(2);
         } else{
         onScreen.textContent = obj.num1;
