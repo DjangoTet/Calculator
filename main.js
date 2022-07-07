@@ -114,7 +114,6 @@ if(event.target !== plusMinus){
 function saveNum2(){
 if (event.target !== plusMinus) {
   if (obj.num2.length + 1 > 10) {
-    console.log('hey');
     return obj;
   }
   obj.num2 += event.target.textContent;
