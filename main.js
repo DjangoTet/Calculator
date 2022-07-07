@@ -159,7 +159,11 @@ function solve(num1, num2){
         plus_minus(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        onScreen.textContent = obj.num1;
+        if (String(result).length >= 10) {
+          onScreen.textContent = obj.num1.toExponential(2);
+        } else {
+          onScreen.textContent = obj.num1;
+        }
       }
       break;
     case 'plus':
@@ -167,7 +171,11 @@ function solve(num1, num2){
         addition(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        onScreen.textContent = obj.num1;
+        if (String(result).length >= 10) {
+          onScreen.textContent = obj.num1.toExponential(2);
+        } else {
+          onScreen.textContent = obj.num1;
+        }
       }
       break;
     case 'minus':
@@ -175,7 +183,11 @@ function solve(num1, num2){
         subtraction(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        onScreen.textContent = obj.num1;
+        if (String(result).length >= 10) {
+          onScreen.textContent = obj.num1.toExponential(2);
+        } else {
+          onScreen.textContent = obj.num1;
+        }
       }
       break;
     case 'divide':
@@ -183,7 +195,11 @@ function solve(num1, num2){
         division(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
-        onScreen.textContent = obj.num1;
+        if (String(result).length >= 10) {
+          onScreen.textContent = obj.num1.toExponential(2);
+        } else {
+          onScreen.textContent = obj.num1;
+        }
       }
       break;
     case 'times':
@@ -191,7 +207,11 @@ function solve(num1, num2){
         multiplication(newNum1, newNum2);
         obj.num1 = result;
         obj.num2 = '';
+        if(String(result).length >= 10){
+          onScreen.textContent = obj.num1.toExponential(2);
+        } else{
         onScreen.textContent = obj.num1;
+        }
       }
       break;
   }
